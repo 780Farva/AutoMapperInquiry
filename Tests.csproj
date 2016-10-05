@@ -59,6 +59,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionMappingProfile.cs" />
+    <Compile Include="DomainCollection.cs" />
+    <Compile Include="DomainProfile1.cs" />
+    <Compile Include="DomainProfile2.cs" />
+    <Compile Include="DomainType1.cs" />
+    <Compile Include="DomainType2.cs" />
+    <Compile Include="Dto1.cs" />
+    <Compile Include="Dto2.cs" />
+    <Compile Include="DtoCollection.cs" />
+    <Compile Include="IDomainType.cs" />
+    <Compile Include="IDto.cs" />
     <Compile Include="MappingInquiry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

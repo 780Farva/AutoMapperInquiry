@@ -6,90 +6,6 @@ using Xunit;
 
 namespace Tests
 {
-  public interface IDomainType
-  {
-    int Prop0 { get; set; }
-  }
-
-  public class DomainType1 : IDomainType
-  {
-    public int Prop1 { get; set; }
-    public int Prop0 { get; set; }
-  }
-
-  public class DomainType2 : IDomainType
-  {
-    public int Prop2 { get; set; }
-    public int Prop0 { get; set; }
-  }
-
-  public interface IDto
-  {
-    int P0 { get; set; }
-  }
-
-  public class Dto1 : IDto
-  {
-    public int P1 { get; set; }
-    public int P0 { get; set; }
-  }
-
-  public class Dto2 : IDto
-  {
-    public int P2 { get; set; }
-    public int P0 { get; set; }
-  }
-
-  public class DtoCollection
-  {
-    private readonly IList<IDto> entries = new List<IDto>();
-    public IEnumerable<IDto> Entries => this.entries;
-    public void Add(IDto entry) { this.entries.Add(entry); }
-  }
-
-  public class DomainCollection
-  {
-    public IEnumerable<IDomainType> Entries { get; set; }
-  }
-
-  public class CollectionMappingProfile : Profile
-  {
-    public CollectionMappingProfile()
-    {
-      this.CreateMap<IDomainType, IDto>().ForMember(m => m.P0, a => a.MapFrom(x => x.Prop0)).ReverseMap();
-
-      this.CreateMap<DtoCollection, DomainCollection>().
-        ForMember(fc => fc.Entries, opt => opt.Ignore()).
-        AfterMap((tc, fc, ctx) => fc.Entries = tc.Entries.Select(e => ctx.Mapper.Map<IDomainType>(e)).ToArray());
-
-      this.CreateMap<DomainCollection, DtoCollection>().
-        AfterMap((fc, tc, ctx) =>
-                 {
-                   foreach (var t in fc.Entries.Select(e => ctx.Mapper.Map<IDto>(e))) tc.Add(t);
-                 });
-    }
-  }
-
-  public class Profile1 : Profile
-  {
-    public Profile1()
-    {
-      this.CreateMap<DomainType1, Dto1>().ForMember(m => m.P1, a => a.MapFrom(x => x.Prop1))
-          .IncludeBase<IDomainType, IDto>().ReverseMap();
-    }
-  }
-
-  public class Profile2 : Profile
-  {
-    public Profile2()
-    {
-      this.CreateMap<DomainType2, IDto>().ConstructUsing(f => new Dto2()).As<Dto2>();
-
-      this.CreateMap<DomainType2, Dto2>().ForMember(m => m.P2, a => a.MapFrom(x => x.Prop2))
-          .IncludeBase<IDomainType, IDto>().ReverseMap();
-    }
-  }
-
   [Trait("Category", "UnitTest")]
   public class MappingInquiry
   {
@@ -101,8 +17,8 @@ namespace Tests
       this.mapper = new MapperConfiguration(cfg =>
                                             {
                                               cfg.AddProfile<CollectionMappingProfile>();
-                                              cfg.AddProfile<Profile1>();
-                                              cfg.AddProfile<Profile2>();
+                                              cfg.AddProfile<DomainProfile1>();
+                                              cfg.AddProfile<DomainProfile2>();
                                             }).CreateMapper();
     }
 
