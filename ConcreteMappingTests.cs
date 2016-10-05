@@ -1,6 +1,7 @@
 using AutoMapper;
 using Plugin1;
 using Plugin2;
+using ProjectCore;
 using Shouldly;
 using Xunit;
 
@@ -16,10 +17,15 @@ namespace Tests
     {
       this.mapper = new MapperConfiguration(cfg =>
                                             {
+                                              cfg.AddProfile<DomainDtoInterfaceProfile>();
                                               cfg.AddProfile<DomainProfile1>();
                                               cfg.AddProfile<DomainProfile2>();
                                             }).CreateMapper();
     }
+
+
+    [Fact]
+    public void ConfigurationIsValid() { this.mapper.ConfigurationProvider.AssertConfigurationIsValid(); }
 
 
     [Fact]

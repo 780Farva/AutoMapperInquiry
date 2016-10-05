@@ -17,9 +17,31 @@ namespace Tests
     {
       this.mapper = new MapperConfiguration(cfg =>
                                             {
+                                              cfg.AddProfile<DomainDtoInterfaceProfile>();
                                               cfg.AddProfile<DomainProfile1>();
                                               cfg.AddProfile<DomainProfile2>();
                                             }).CreateMapper();
+    }
+
+
+    [Fact]
+    public void ConfigurationIsValid()
+    {
+      this.mapper.ConfigurationProvider.AssertConfigurationIsValid();
+    }
+
+
+    [Fact]
+    public void MapsDomain1ToDto1UsingInterfaces()
+    {
+      this.testInheritanceTypeMapping<IDomainType, DomainType1, IDto, Dto1>();
+    }
+
+
+    [Fact]
+    public void MapsDomain2ToDto2UsingInterfaces()
+    {
+      this.testInheritanceTypeMapping<IDomainType, DomainType2, IDto, Dto2>();
     }
 
 
@@ -35,18 +57,6 @@ namespace Tests
     {
       this.testInheritanceTypeMapping<IDto, Dto2, IDomainType, DomainType2>();
     }
-    [Fact]
-    public void MapsDomain1ToDto1UsingInterfaces()
-    {
-      this.testInheritanceTypeMapping<IDomainType, DomainType1, IDto, Dto1>();
-    }
-
-
-    [Fact]
-    public void MapsDomain2ToDto2UsingInterfaces()
-    {
-      this.testInheritanceTypeMapping<IDomainType, DomainType2, IDto, Dto2>();
-    }
 
 
     private void testInheritanceTypeMapping<TFromBase, TFrom, TToBase, TTo>() where TFrom : TFromBase, new()
@@ -56,7 +66,5 @@ namespace Tests
       var to = this.mapper.Map<TToBase>(from);
       to.ShouldBeOfType<TTo>();
     }
-
-
   }
 }

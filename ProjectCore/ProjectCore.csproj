@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CollectionMappingProfile.cs" />
     <Compile Include="DomainCollection.cs" />
+    <Compile Include="DomainDtoInterfaceProfile.cs" />
     <Compile Include="DtoCollection.cs" />
     <Compile Include="IDomainType.cs" />
     <Compile Include="IDto.cs" />

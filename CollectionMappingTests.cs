@@ -19,6 +19,7 @@ namespace Tests
       this.mapper = new MapperConfiguration(cfg =>
                                             {
                                               cfg.AddProfile<CollectionMappingProfile>();
+                                              cfg.AddProfile<DomainDtoInterfaceProfile>();
                                               cfg.AddProfile<DomainProfile1>();
                                               cfg.AddProfile<DomainProfile2>();
                                             }).CreateMapper();

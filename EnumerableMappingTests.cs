@@ -12,7 +12,6 @@ namespace Tests
   [Trait("Category", "UnitTest")]
   public class EnumerableMappingTests
   {
-
     private readonly IMapper mapper;
 
 
@@ -20,10 +19,16 @@ namespace Tests
     {
       this.mapper = new MapperConfiguration(cfg =>
                                             {
+                                              cfg.AddProfile<DomainDtoInterfaceProfile>();
                                               cfg.AddProfile<DomainProfile1>();
                                               cfg.AddProfile<DomainProfile2>();
                                             }).CreateMapper();
     }
+
+
+    [Fact]
+    public void ConfigurationIsValid() { this.mapper.ConfigurationProvider.AssertConfigurationIsValid(); }
+
 
     [Fact]
     public void MapsEnumerableOfDomainObjectsUsingInterfaces()
@@ -83,7 +88,7 @@ namespace Tests
 
       var domainObject2 = domainObjects[1].ShouldBeOfType<DomainType2>();
       domainObject2.Prop0.ShouldBe(20);
-      domainObject2.Prop0.ShouldBe(22);
+      domainObject2.Prop2.ShouldBe(22);
     }
   }
 }
