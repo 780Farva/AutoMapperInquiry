@@ -1,4 +1,6 @@
-namespace Tests
+using ProjectCore;
+
+namespace Plugin1
 {
   public class DomainType1 : IDomainType
   {

@@ -1,4 +1,4 @@
-namespace Tests
+namespace ProjectCore
 {
   public interface IDomainType
   {

@@ -1,4 +1,6 @@
-namespace Tests
+using ProjectCore;
+
+namespace Plugin2
 {
   public class Dto2 : IDto
   {

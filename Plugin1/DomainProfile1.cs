@@ -1,6 +1,7 @@
 using AutoMapper;
+using ProjectCore;
 
-namespace Tests
+namespace Plugin1
 {
   public class DomainProfile1 : Profile
   {

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Plugin1;
+using Plugin2;
+using ProjectCore;
 using Shouldly;
 using Xunit;
 

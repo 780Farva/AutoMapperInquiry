@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Tests
+namespace ProjectCore
 {
   public class DtoCollection
   {

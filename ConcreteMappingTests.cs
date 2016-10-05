@@ -1,4 +1,6 @@
 using AutoMapper;
+using Plugin1;
+using Plugin2;
 using Shouldly;
 using Xunit;
 

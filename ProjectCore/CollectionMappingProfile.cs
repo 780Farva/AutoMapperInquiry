@@ -1,7 +1,7 @@
 using System.Linq;
 using AutoMapper;
 
-namespace Tests
+namespace ProjectCore
 {
   public class CollectionMappingProfile : Profile
   {
