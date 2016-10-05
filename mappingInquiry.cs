@@ -50,9 +50,14 @@ namespace Tests
 
       var dtoCollection = this.mapper.Map<DtoCollection>(domainContainer);
       dtoCollection.Entries.Count().ShouldBe(domainContainer.Entries.Count());
+      
+      var dto1 = dtoCollection.Entries.ElementAt(0).ShouldBeOfType<Dto1>();
+      dto1.P0.ShouldBe(10);
+      dto1.P1.ShouldBe(11);
 
-      dtoCollection.Entries.OfType<Dto2>().Count().ShouldBe(1);
-      dtoCollection.Entries.OfType<Dto1>().Count().ShouldBe(1);
+      var dto2 = dtoCollection.Entries.ElementAt(1).ShouldBeOfType<Dto2>();
+      dto2.P0.ShouldBe(20);
+      dto2.P2.ShouldBe(22);
     }
 
 
@@ -81,8 +86,13 @@ namespace Tests
       var domainCollection = this.mapper.Map<DomainCollection>(dtoCollection);
       domainCollection.Entries.Count().ShouldBe(dtoCollection.Entries.Count());
 
-      domainCollection.Entries.OfType<DomainType2>().Count().ShouldBe(1);
-      domainCollection.Entries.OfType<DomainType2>().Count().ShouldBe(1);
+      var domain1 = domainCollection.Entries.ElementAt(0).ShouldBeOfType<DomainType1>();
+      domain1.Prop0.ShouldBe(10);
+      domain1.Prop1.ShouldBe(11);
+
+      var domain2 = domainCollection.Entries.ElementAt(1).ShouldBeOfType<DomainType2>();
+      domain2.Prop0.ShouldBe(20);
+      domain2.Prop2.ShouldBe(22);
     }
 
 
@@ -163,14 +173,14 @@ namespace Tests
 
 
     [Fact]
-    public void MapsFromDomain1ToDto1UsingInterfaces()
+    public void MapsDomain1ToDto1UsingInterfaces()
     {
       this.testInheritanceTypeMapping<IDomainType, DomainType1, IDto, Dto1>();
     }
 
 
     [Fact]
-    public void MapsFromDomain2ToDto2UsingInterfaces()
+    public void MapsDomain2ToDto2UsingInterfaces()
     {
       this.testInheritanceTypeMapping<IDomainType, DomainType2, IDto, Dto2>();
     }
