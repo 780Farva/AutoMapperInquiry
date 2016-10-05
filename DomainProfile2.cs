@@ -10,6 +10,9 @@ namespace Tests
 
       this.CreateMap<DomainType2, Dto2>().ForMember(m => m.P2, a => a.MapFrom(x => x.Prop2))
           .IncludeBase<IDomainType, IDto>().ReverseMap();
+
+
+      this.CreateMap<Dto2, IDomainType>().ConstructUsing(dto => new DomainType2()).As<DomainType2>();
     }
   }
 }
